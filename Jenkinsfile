@@ -2,7 +2,7 @@ pipeline {
     agent {
         label "${AGENT}"
     }
-
+ 
     stages {
         stage("Continuous Integration / Intégration Continue") {
             steps {
