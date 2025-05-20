@@ -1,4 +1,15 @@
-const Input = ({ type, name, placeholder, setUsername, setPassword }) => {
+const Input = ({ type, name, placeholder, setUsername, setPassword, setConfirmPassword }) => {
+    const handleInputChange = (e) => {
+        const { value } = e.target;
+        if (name === "username") {
+            setUsername(value);
+        } else if (name === "password") {
+            setPassword(value);
+        } else if (name === "confirmPassword") {
+            setConfirmPassword(value);
+        }
+    }
+
     return (  
         <>
             <input 
@@ -7,12 +18,7 @@ const Input = ({ type, name, placeholder, setUsername, setPassword }) => {
                 id={name} 
                 placeholder={placeholder} 
                 className="w-full text-mybank-darkblue bg-neutral-300 rounded-lg p-1 px-3 mb-2" 
-                onChange={(e) => 
-                    name === "username" ?
-                    setUsername(e.target.value) 
-                    : 
-                    setPassword(e.target.value)
-                }
+                onChange={handleInputChange}
                 required 
             />
         </>

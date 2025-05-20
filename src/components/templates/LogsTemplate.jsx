@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { useNavigate } from 'react-router';
 import { useSelector, useDispatch } from 'react-redux'
 import { setLoginValue } from '../../stores/slices/loginSlice';
 import LoginForm from "../organisms/LoginForm";
@@ -7,10 +8,12 @@ import Logo from "../atoms/Logo";
 import BackLogo from '../atoms/BackLogo';
 
 const LogsTemplate = () => {
+    const navigate = useNavigate();
     const dispatch = useDispatch()
     const [title, setTitle] = React.useState('Sign in');
     const [username, setUsername] = React.useState('');
     const [password, setPassword] = React.useState('');
+    const [confirmPassword, setConfirmPassword] = React.useState('');
 
     const handleRegister = () => {
         console.log("Registering !");
@@ -23,9 +26,31 @@ const LogsTemplate = () => {
     }
 
     const handleLog = () => {
-        const logs = { username, password };
-        dispatch(setLoginValue(logs));
-        console.log('Logging in...', logs);
+        if (title === "Register") {
+            if (password !== confirmPassword) {
+                alert("Passwords do not match !");
+                console.error("Passwords do not match !");
+                return;
+            }
+            if (username === "" || password === "" || confirmPassword === "") {
+                alert("Please fill all the fields !");
+                console.error("Please fill all the fields !");
+                return;
+            }
+            console.log("Registering !");
+            dispatch(setLoginValue({ username, password }));
+            console.log("You are now registered !", { username, password });
+            setTitle('Sign in');
+        } else {
+            if (username === "" || password === "") {
+                alert("Please fill all the fields !");
+                console.error("Please fill all the fields !");
+                return;
+            }
+            console.log("Logging in !", { username, password });
+            dispatch(setLoginValue({ username, password }));
+            navigate('/home');
+        }
     }
 
     // TODO : ADD FORGOT PASSWORD SYSTEM
@@ -45,6 +70,7 @@ const LogsTemplate = () => {
                         title={title} 
                         setUsername={setUsername} 
                         setPassword={setPassword} 
+                        setConfirmPassword={setConfirmPassword} 
                     />
 
                     { title === "Sign in" ?

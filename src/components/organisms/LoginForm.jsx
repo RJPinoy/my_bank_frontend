@@ -1,6 +1,6 @@
 import FormField from "../molecules/FormField";
 
-const LoginForm = ({ title, setUsername, setPassword }) => {
+const LoginForm = ({ title, setUsername, setPassword, setConfirmPassword }) => {
     const showForm = () => {
         if(title === 'Sign in') {
             return (
@@ -17,7 +17,7 @@ const LoginForm = ({ title, setUsername, setPassword }) => {
                     <form action="">
                         <FormField label="Username :" type="text" name="username" placeholder="username" setUsername={setUsername} setPassword={setPassword} />
                         <FormField label="Password :" type="password" name="password" placeholder="password" setUsername={setUsername} setPassword={setPassword} />
-                        <FormField label="Confirm password :" type="password" name="confirmPassword" placeholder="password" setUsername={setUsername} setPassword={setPassword} />
+                        <FormField label="Confirm password :" type="password" name="confirmPassword" placeholder="password" setUsername={setUsername} setConfirmPassword={setConfirmPassword} />
                     </form>
                 </>
             )
