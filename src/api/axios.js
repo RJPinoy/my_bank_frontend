@@ -41,3 +41,16 @@ export async function login(username, password) {
         throw error;
     }
 }
+
+export async function logout() {
+    try {
+        const response = await api.post('api/logout', {}, {
+            withCredentials: true
+        });
+        console.log('Logout successful:', response.data);
+        return response.data;
+    } catch (error) {
+        console.error('Error during logout:', error);
+        throw error;
+    }
+}
