@@ -1,15 +1,26 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { Navigate, Outlet } from 'react-router-dom';
+import { isAuthenticated } from '../api/user/route';
 
 const ProtectedRoute = () => {
-    // const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
-    const isAuthenticated = true; // Replace with actual authentication logic
+    const [authChecked, setAuthChecked] = React.useState(false);
+    const [isAuth, setIsAuth] = React.useState(false);
 
-    if (!isAuthenticated) {
-        return <Navigate to="/" replace />;
-    }
-    
+    React.useEffect(() => {
+        const checkAuth = async () => {
+            const user = await isAuthenticated();
+            setIsAuth(!!user);
+            setAuthChecked(true);
+        };
+
+        checkAuth();
+    }, []);
+
+    if (!authChecked) return null; // or a spinner/loading indicator
+
+    if (!isAuth) return <Navigate to="/" replace />;
+
     return <Outlet />;
 }
 
