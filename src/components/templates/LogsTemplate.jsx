@@ -102,7 +102,7 @@ const LogsTemplate = () => {
                         <>
                             <div className="flex justify-between w-full">
                                 <Button label="Register" handleClick={() => handleRegister()} />
-                                <Button label="Forgot my password ?" handleClick={() => handleForgot()} />
+                                {/* <Button label="Forgot my password ?" handleClick={() => handleForgot()} /> */}
                             </div>
                             <div className='flex justify-center'>
                                 <button className='mt-5 m-2 p-2 rounded-md bg-mybank-green text-mybank-darkblue border border-mybank-darkblue hover:bg-mybank-darkblue hover:text-mybank-green hover:border-mybank-green transition duration-200 ease-in-out' onClick={() => handleLog()}>{title}</button>
