@@ -2,6 +2,7 @@ import * as React from 'react';
 import { useNavigate } from 'react-router';
 import { useSelector } from 'react-redux';
 import { logout } from '../../api/axios';
+import { getCategories } from '../../api/categories/route';
 import { useModal } from '../modals/ModalProvider';
 
 const DashboardTemplate = () => {
@@ -16,6 +17,10 @@ const DashboardTemplate = () => {
         const currentUser = localStorage.getItem('user');
         if (currentUser) {
             setUser(JSON.parse(currentUser).username);
+
+            getCategories().then(categories => {
+                localStorage.setItem('mybank-categories', JSON.stringify(categories));
+            });
         }
     }, []);
 

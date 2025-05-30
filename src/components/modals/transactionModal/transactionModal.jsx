@@ -4,6 +4,9 @@ import { setTransaction } from '../../../stores/slices/transactionSlice';
 const TransactionModal = ({ handleCancel, handleConfirm }) => {
     const dispatch = useDispatch(); // ✅ Get dispatch from react-redux
 
+    const categories = localStorage.getItem('mybank-categories') ? JSON.parse(localStorage.getItem('mybank-categories')) : [];
+    console.log("Categories from localStorage:", categories);
+
     const handleSubmit = (event) => {
         event.preventDefault();
         const formData = new FormData(event.target);
@@ -37,12 +40,17 @@ const TransactionModal = ({ handleCancel, handleConfirm }) => {
                     <div className="w-full p-4 text-base">
                         <label htmlFor="category" className="block mb-2">Category :</label>
                         <select id="category" name="category" className="w-full text-white font-normal border border-mybank-darkblue bg-mybank-darkblue rounded-[8px] p-2 mb-4" required>
-                            <option value={1}>Food</option>
-                            <option value={2}>Transport</option>
-                            <option value={3}>Entertainment</option>
-                            <option value={4}>Utilities</option>
-                            <option value={5}>Health</option>
-                            <option value={6}>Other</option>
+                            {
+                                categories.length > 0 ? (
+                                    categories.map((category) => (
+                                        <option key={category.id} value={category.id}>
+                                            {category.name}
+                                        </option>
+                                    ))
+                                ) : (
+                                    <option value="" disabled>No categories available</option>
+                                )
+                            }
                         </select>
                     </div>
 
