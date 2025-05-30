@@ -65,8 +65,29 @@ const DashboardTemplate = () => {
                                 </button>
                             </div>
                         )}
-                    </div>
                 </header>
+
+                <main className="dashboard-main flex flex-row items-center w-full h-dvh">
+                    <nav className='bg-white flex-1 h-full p-4 pr-0 border-r border-mybank-darkblue flex flex-col justify-between text-mybank-darkblue'>
+                        <ul className='flex flex-col' dir='ltr'>
+                            <li className='p-2 pl-4 mb-2 rounded-s-[10px] bg-[#D9D9D9] font-bold cursor-pointer'>All my transactions :</li>
+                        </ul>
+                    </nav>
+
+                    <div className='bg-[#D9D9D9] w-4/5 h-full p-4'>
+                        <h2 className='text-mybank-darkblue text-2xl font-bold mb-4'>
+                            Welcome to your dashboard, {user}!
+                            <button
+                                id='button-create_transaction'
+                                className="text-center ml-2 px-2 rounded-[8px] transition-all duration-300 ease-in-out bg-mybank-red text-white"
+                                onClick={openModal}
+                            >
+                                +
+                            </button>
+                        </h2>
+                        <p className='text-mybank-darkblue'>You have no transactions yet. Start and create a new one!</p>
+                    </div>
+                </main>
             </div>
         </>
      );
