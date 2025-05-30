@@ -53,10 +53,24 @@ const DashboardTemplate = () => {
         navigate('/');
     };
 
-    const openModal = (e) => {
+    const openCreateTransactionModal = () => {
         console.log("Open modal clicked");
-        e.preventDefault();
         showModal('transaction');
+    }
+
+    const openModifyTransactionModal = (transaction) => {
+        console.log("Open modify modal clicked", {
+            id: transaction.id,
+            name: transaction.name,
+            amount: transaction.amount,
+            category: transaction.category,
+        });
+        showModal('transaction', {
+            initialId: transaction.id,
+            initialName: transaction.name,
+            initialAmount: transaction.amount,
+            initialCategory: transaction.category.id,
+        });
     }
 
     return ( 
@@ -105,7 +119,7 @@ const DashboardTemplate = () => {
                             <button
                                 id='button-create_transaction'
                                 className="text-center ml-2 px-2 rounded-[8px] transition-all duration-300 ease-in-out bg-mybank-red text-white"
-                                onClick={openModal}
+                                onClick={openCreateTransactionModal}
                             >
                                 +
                             </button>
@@ -115,7 +129,8 @@ const DashboardTemplate = () => {
                                 {transactions.map((transaction, index) => (
                                     <div
                                         key={index}
-                                        className="bg-white rounded-lg shadow-md p-4 border border-gray-200 hover:shadow-lg transition-shadow duration-300"
+                                        className="bg-white rounded-lg shadow-md p-4 border border-gray-200 hover:shadow-lg transition-shadow duration-300 cursor-pointer"
+                                        onClick={() => openModifyTransactionModal(transaction)}
                                     >
                                         <div className="flex justify-between items-start mb-2">
                                             <h3 className="text-lg font-semibold text-mybank-darkblue">{transaction.name}</h3>

@@ -1,11 +1,11 @@
 import * as React from 'react';
 import { useDispatch } from 'react-redux';
 import { setTransaction } from '../../../stores/slices/transactionSlice';
-import { postTransaction } from '../../../api/transactions/route';
+import { postTransaction, deleteTransaction, updateTransaction } from '../../../api/transactions/route';
 import { useModal } from '../ModalProvider';
 import { sanitizeInput } from '../../../utils';
 
-const TransactionModal = ({ handleCancel, handleConfirm, initialName = '', initialAmount = '', initialCategory = '' }) => {
+const TransactionModal = ({ handleCancel, handleConfirm, initialId = null, initialName = '', initialAmount = '', initialCategory = '' }) => {
     const [name, setName] = React.useState(initialName);
     const [amount, setAmount] = React.useState(initialAmount);
     const [category, setCategory] = React.useState(initialCategory);
@@ -42,17 +42,42 @@ const TransactionModal = ({ handleCancel, handleConfirm, initialName = '', initi
 
         const transactionData = {
             name: sanitizedName,
-            amount: Number(sanitizedAmount),
+            amount: sanitizedAmount,
             category: sanitizedCategory,
         };
 
-        // Dispatch and post
-        dispatch(setTransaction(transactionData));
-        postTransaction(transactionData);
+        if (initialId) {
+            updateTransaction(initialId, transactionData)
+            dispatch(setTransaction(transactionData));
+        } else {
+            // Dispatch and post
+            dispatch(setTransaction(transactionData));
+            postTransaction(transactionData);
+        }
 
         setError(null);
         hideModal();
     };
+
+    const handleDelete = () => {
+        if (initialId) {
+            deleteTransaction(initialId)
+                .then(() => {
+                    dispatch(setTransaction({
+                        name: '',
+                        amount: '',
+                        category: 2,
+                    })); // Clear transaction state
+                    hideModal();
+                })
+                .catch((err) => {
+                    setError('Failed to delete transaction. Please try again.');
+                    console.error(err);
+                });
+        } else {
+            setError('No transaction to delete.');
+        }
+    }
 
     return (
         <>
@@ -88,7 +113,7 @@ const TransactionModal = ({ handleCancel, handleConfirm, initialName = '', initi
                                 value={amount}
                                 onChange={(e) => setAmount(e.target.value)}
                                 min={0}
-                                step="0.01"
+                                step="any"
                                 required
                             />
                         </div>
@@ -120,9 +145,11 @@ const TransactionModal = ({ handleCancel, handleConfirm, initialName = '', initi
                         <button
                             type="button"
                             className="bg-mybank-red p-2 text-white rounded-[5px] m-4 transition-all duration-300 ease-in-out hover:bg-red-600"
-                            onClick={handleCancel}
+                            onClick={initialId ? handleDelete : handleCancel}
                         >
-                            Annuler
+                            {
+                                initialId ? 'Supprimer' : 'Annuler'
+                            }
                         </button>
                         <button
                             type="submit"
