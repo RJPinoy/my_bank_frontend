@@ -33,3 +33,14 @@ npx tailwindcss -i ./src/index.css -o ./src/output.css --watch */
   margin: 0;
   box-sizing: border-box;
 }
+
+body {
+  height: 100dvh;
+  overflow: hidden;
+}
+
+input:-webkit-autofill {
+  background-color: #ffecd1 !important;
+  color: #000 !important;
+  transition: background-color 5000s ease-in-out 0s;
+}

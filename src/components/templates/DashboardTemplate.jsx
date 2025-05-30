@@ -23,8 +23,8 @@ const DashboardTemplate = () => {
     }
 
     const handleLogout = () => {
-        localStorage.removeItem('user');
         logout();
+        localStorage.removeItem('user');
         navigate('/');
     };
 
@@ -39,7 +39,7 @@ const DashboardTemplate = () => {
             <div className="dashboard-container flex justify-between flex-col items-center w-full">
                 <header className="dashboard-header flex justify-between items-center w-full px-4">
                     <img src="#" alt="Logo" className="logo m-4" />
-                    <h1 className="dashboard-title">My Bank</h1>
+                    <h1 className="dashboard-title text-2xl font-bold">My Bank</h1>
                     <div className="dashboard-user-info flex flex-row justify-end items-center m-4 w-40 relative hover:cursor-pointer" onClick={handleProfileClick}>
                         <span className="user-name mr-4">{user}</span>
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" stroke="white" fill="white" className="user-icon w-8 h-8">
@@ -56,10 +56,10 @@ const DashboardTemplate = () => {
                     </div>
                         
                         {showProfileMenu && (
-                        <div className="absolute top-10 right-8 mt-4 w-40 bg-black/50 border rounded shadow-md z-50 flex justify-center">
+                        <div className="absolute top-10 right-8 mt-4 p-4 w-40 bg-black/90 rounded-[8px] shadow-md z-50 flex justify-center overflow-hidden">
                                 <button
                                     onClick={handleLogout}
-                                className="block w-full text-center px-4 py-2 transition-all duration-200 ease-in-out hover:bg-gray-100 text-red-600"
+                                className="block w-full text-center px-4 py-2 rounded-[8px] transition-all duration-200 ease-in-out text-mybank-red hover:bg-mybank-red hover:text-white"
                                 >
                                 Log out
                                 </button>
