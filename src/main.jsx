@@ -8,6 +8,8 @@ import {
   createBrowserRouter,
   RouterProvider,
 } from "react-router";
+import ModalHandler from './components/modals/modalHandler.jsx'
+import { ModalProvider } from './components/modals/ModalProvider.jsx'
 import ProtectedRoute from './routes/ProtectedRoute.jsx'
 import DashboardTemplate from './components/templates/DashboardTemplate.jsx'
 
@@ -31,7 +33,10 @@ const root = document.getElementById('root');
 createRoot(root).render(
   <StrictMode>
     <Provider store={store}>
-      <RouterProvider router={router} />
+      <ModalProvider>
+        <ModalHandler />
+        <RouterProvider router={router} />
+      </ModalProvider>
     </Provider>
   </StrictMode>,
 )

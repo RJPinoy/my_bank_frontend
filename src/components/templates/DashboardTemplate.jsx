@@ -1,10 +1,13 @@
 import * as React from 'react';
 import { useNavigate } from 'react-router';
 import { logout } from '../../api/axios';
+import { useModal } from '../modals/ModalProvider';
 
 const DashboardTemplate = () => {
     const [user, setUser] = React.useState(null);
     const [showProfileMenu, setShowProfileMenu] = React.useState(false);
+    const { showModal, hideModal } = useModal();
+
     const navigate = useNavigate();
 
     React.useEffect(() => {
@@ -24,6 +27,12 @@ const DashboardTemplate = () => {
         logout();
         navigate('/');
     };
+
+    const openModal = (e) => {
+        console.log("Open modal clicked");
+        e.preventDefault();
+        showModal('transaction');
+    }
 
     return ( 
         <>
