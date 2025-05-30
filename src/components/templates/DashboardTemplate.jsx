@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { useNavigate } from 'react-router';
+import { useSelector } from 'react-redux';
 import { logout } from '../../api/axios';
 import { useModal } from '../modals/ModalProvider';
 
@@ -9,6 +10,7 @@ const DashboardTemplate = () => {
     const { showModal, hideModal } = useModal();
 
     const navigate = useNavigate();
+    const transaction = useSelector(state => state.transaction);
 
     React.useEffect(() => {
         const currentUser = localStorage.getItem('user');
@@ -16,6 +18,10 @@ const DashboardTemplate = () => {
             setUser(JSON.parse(currentUser).username);
         }
     }, []);
+
+    React.useEffect(() => {
+        console.log("Updated transaction:", transaction);
+    }, [transaction]);
 
     const handleProfileClick = () => {
         console.log("Profile clicked");
@@ -55,16 +61,16 @@ const DashboardTemplate = () => {
                         </svg>
                     </div>
                         
-                        {showProfileMenu && (
+                    {showProfileMenu && (
                         <div className="absolute top-10 right-8 mt-4 p-4 w-40 bg-black/90 rounded-[8px] shadow-md z-50 flex justify-center overflow-hidden">
-                                <button
-                                    onClick={handleLogout}
+                            <button
+                                onClick={handleLogout}
                                 className="block w-full text-center px-4 py-2 rounded-[8px] transition-all duration-200 ease-in-out text-mybank-red hover:bg-mybank-red hover:text-white"
-                                >
+                            >
                                 Log out
-                                </button>
-                            </div>
-                        )}
+                            </button>
+                        </div>
+                    )}
                 </header>
 
                 <main className="dashboard-main flex flex-row items-center w-full h-dvh">
