@@ -58,7 +58,7 @@ const LogsTemplate = () => {
             try {
                 // 🔐 Attempt login
                 const response = await login(username, password);
-                localStorage.setItem('user', JSON.stringify(response.user));
+                localStorage.setItem('mybank-user', JSON.stringify(response.user));
 
                 // 🧠 Optional: Fetch user data or store info in Redux
                 dispatch(setLoginValue({ username }));
