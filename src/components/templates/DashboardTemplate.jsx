@@ -3,29 +3,43 @@ import { useNavigate } from 'react-router';
 import { useSelector } from 'react-redux';
 import { logout } from '../../api/axios';
 import { getCategories } from '../../api/categories/route';
+import { getTransactions } from '../../api/transactions/route';
 import { useModal } from '../modals/ModalProvider';
 
 const DashboardTemplate = () => {
     const [user, setUser] = React.useState(null);
     const [showProfileMenu, setShowProfileMenu] = React.useState(false);
-    const { showModal, hideModal } = useModal();
+    const [transactions, setTransactions] = React.useState([]);
+    const { showModal } = useModal();
 
     const navigate = useNavigate();
     const transaction = useSelector(state => state.transaction);
 
     React.useEffect(() => {
-        const currentUser = localStorage.getItem('user');
+        const currentUser = localStorage.getItem('mybank-user');
         if (currentUser) {
             setUser(JSON.parse(currentUser).username);
 
             getCategories().then(categories => {
                 localStorage.setItem('mybank-categories', JSON.stringify(categories));
+            })
+            .catch(error => {
+                console.error("Error fetching categories:", error);
             });
         }
     }, []);
 
     React.useEffect(() => {
         console.log("Updated transaction:", transaction);
+
+        getTransactions()
+            .then(fetchedTransactions => {
+                setTransactions(fetchedTransactions);
+                console.log("Fetched transactions:", fetchedTransactions);
+            })
+            .catch(error => {
+                console.error("Error fetching transactions:", error);
+            });
     }, [transaction]);
 
     const handleProfileClick = () => {
@@ -96,7 +110,28 @@ const DashboardTemplate = () => {
                                 +
                             </button>
                         </h2>
-                        <p className='text-mybank-darkblue'>You have no transactions yet. Start and create a new one!</p>
+                        { transactions.length > 0 ? (
+                            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                                {transactions.map((transaction, index) => (
+                                    <div
+                                        key={index}
+                                        className="bg-white rounded-lg shadow-md p-4 border border-gray-200 hover:shadow-lg transition-shadow duration-300"
+                                    >
+                                        <div className="flex justify-between items-start mb-2">
+                                            <h3 className="text-lg font-semibold text-mybank-darkblue">{transaction.name}</h3>
+                                            <p className="text-sm text-right font-semibold text-mybank-darkblue">
+                                                {new Date(transaction.date).toLocaleString("fr-FR", { timeZone: "UTC" })}
+                                            </p>
+                                        </div>
+                                    
+                                        <p className="text-mybank-green font-bold text-xl">{transaction.amount} €</p>
+                                        <p className="mt-1 text-gray-500">Category: {transaction.category?.name}</p>
+                                    </div>
+                                ))}
+                            </div>
+                        ) : (
+                            <p className='text-mybank-darkblue'>You have no transactions yet. Start and create a new one!</p>
+                        )}
                     </div>
                 </main>
             </div>
