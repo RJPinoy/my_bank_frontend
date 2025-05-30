@@ -1,12 +1,14 @@
+import { sanitizeInput } from "../../utils";
+
 const Input = ({ type, name, placeholder, setUsername, setPassword, setConfirmPassword }) => {
     const handleInputChange = (e) => {
         const { value } = e.target;
         if (name === "username") {
-            setUsername(value);
+            setUsername(sanitizeInput(value));
         } else if (name === "password") {
-            setPassword(value);
+            setPassword(sanitizeInput(value));
         } else if (name === "confirmPassword") {
-            setConfirmPassword(value);
+            setConfirmPassword(sanitizeInput(value));
         }
     }
 

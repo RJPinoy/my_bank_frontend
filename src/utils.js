@@ -1,0 +1,1 @@
+export const sanitizeInput = (input) => input.trim().replace(/</g, "&lt;").replace(/>/g, "&gt;");
