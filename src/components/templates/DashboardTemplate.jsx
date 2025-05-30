@@ -29,7 +29,7 @@ const DashboardTemplate = () => {
         <>
             <div className="dashboard-container flex justify-between flex-col items-center w-full">
                 <header className="dashboard-header flex justify-between items-center w-full px-4">
-                    <img src="https://via.placeholder.com/100" alt="Logo" className="logo m-4" />
+                    <img src="#" alt="Logo" className="logo m-4" />
                     <h1 className="dashboard-title">My Bank</h1>
                     <div className="dashboard-user-info flex flex-row justify-end items-center m-4 w-40 relative hover:cursor-pointer" onClick={handleProfileClick}>
                         <span className="user-name mr-4">{user}</span>
