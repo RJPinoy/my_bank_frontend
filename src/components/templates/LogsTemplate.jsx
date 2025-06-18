@@ -81,7 +81,7 @@ const LogsTemplate = () => {
         <>
             <div className="w-full h-screen flex justify-center items-center flex-col">
                 <div className="w-full flex justify-center items-center flex-col">
-                    <Logo width="w-1/4" />
+                    <Logo width="lg:w-1/4 md:w-1/2 w-3/4" />
                     <h1 className="text-2xl font-bold -mt-16 md:Montserrat">My Bank</h1>
                 </div>
                 <div className="mt-8">

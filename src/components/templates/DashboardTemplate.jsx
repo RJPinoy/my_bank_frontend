@@ -5,6 +5,7 @@ import { logout } from '../../api/axios';
 import { getCategories } from '../../api/categories/route';
 import { getTransactions } from '../../api/transactions/route';
 import { useModal } from '../modals/ModalProvider';
+import Logo from '../atoms/Logo';
 
 const DashboardTemplate = () => {
     const [user, setUser] = React.useState(null);
@@ -76,8 +77,8 @@ const DashboardTemplate = () => {
     return ( 
         <>
             <div className="dashboard-container flex justify-between flex-col items-center w-full">
-                <header className="dashboard-header flex justify-between items-center w-full px-4">
-                    <img src="#" alt="Logo" className="logo m-4" />
+                <header className="dashboard-header flex justify-between items-center w-full px-4 pl-20 h-[80px]">
+                    <Logo width="w-[80px]" />
                     <h1 className="dashboard-title text-2xl font-bold">My Bank</h1>
                     <div className="dashboard-user-info flex flex-row justify-end items-center m-4 w-40 relative hover:cursor-pointer" onClick={handleProfileClick}>
                         <span className="user-name mr-4">{user}</span>
@@ -95,7 +96,7 @@ const DashboardTemplate = () => {
                     </div>
                         
                     {showProfileMenu && (
-                        <div className="absolute top-10 right-8 mt-4 p-4 w-40 bg-black/90 rounded-[8px] shadow-md z-50 flex justify-center overflow-hidden">
+                        <div className="absolute top-[60px] right-8 mt-4 p-4 w-40 bg-black/90 rounded-[8px] shadow-md z-50 flex justify-center overflow-hidden">
                             <button
                                 onClick={handleLogout}
                                 className="block w-full text-center px-4 py-2 rounded-[8px] transition-all duration-200 ease-in-out text-mybank-red hover:bg-mybank-red hover:text-white"
@@ -113,7 +114,7 @@ const DashboardTemplate = () => {
                         </ul>
                     </nav>
 
-                    <div className='bg-[#D9D9D9] w-4/5 h-full p-4'>
+                    <div className='bg-[#D9D9D9] w-2/3 lg:w-4/5 h-full p-4'>
                         <h2 className='text-mybank-darkblue text-2xl font-bold mb-4'>
                             Welcome to your dashboard, {user}!
                             <button
