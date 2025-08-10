@@ -8,7 +8,7 @@ import {
   createBrowserRouter,
   RouterProvider,
 } from "react-router";
-import ModalHandler from './components/modals/modalHandler.jsx'
+import ModalHandler from './components/modals/ModalHandler.jsx'
 import { ModalProvider } from './components/modals/ModalProvider.jsx'
 import ProtectedRoute from './routes/ProtectedRoute.jsx'
 import DashboardTemplate from './components/templates/DashboardTemplate.jsx'
